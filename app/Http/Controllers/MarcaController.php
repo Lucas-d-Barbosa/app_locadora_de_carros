@@ -43,18 +43,8 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        // nome e imagem
-        $rules = 
-        [
-            'nome' => 'required|unique:marcas',
-            'imagem' => 'required'
-        ];
-        $feedback = [
-            'required' => 'O campo :attribute é obrigatório',
-            'nome.unique' => 'O nome da marca já existe'
-        ];
 
-        $request->validate($rules, $feedback);
+        $request->validate($this->marca->rules(), $this->marca->feedbacks());
         // stateless ()
 
         $marca = $this->marca->create($request->all());
@@ -97,9 +87,11 @@ class MarcaController extends Controller
     public function update(Request $request, $id)
     {
         $marca = $this->marca->find($id);
+
         if($marca === null){
             return response()->json(['erro' => 'Impossível realizar a atualização. O recurso solicitado não existe!'],404);
         }
+        $request->validate($marca->rules(), $marca->feedbacks());
         $marca->update($request->all());
         return response()->json($marca, 200);
     }
