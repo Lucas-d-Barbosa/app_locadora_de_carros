@@ -17,7 +17,7 @@ class Marca extends Model
         return $rules = 
         [
             'nome' => 'required|unique:marcas,nome,'.$this->id.'|min:3',
-            'imagem' => 'required'
+            'imagem' => 'required|file|mimes:png'
         ];
        /*
             validação unique
@@ -32,7 +32,8 @@ class Marca extends Model
         return $feedback = [
             'required' => 'O campo :attribute é obrigatório',
             'nome.unique' => 'O nome da marca já existe',
-            'nome.min' => 'O nome deve ter no mínimo 3 caracteres'
+            'nome.min' => 'O nome deve ter no mínimo 3 caracteres',
+            'imagem.mimes' => 'O arquivo deve ser uma imagem do tipo PNG',
         ];
     }
 
