@@ -17,9 +17,15 @@ class ModeloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $modelos = $this->modelo->with('marca')->get();
+        $modelos = array();
+        if($request->has('atributos')){
+            $atributos = $request->atributos;
+            $modelos = $this->modelo->selectRaw($atributos)->with('marca')->get();
+        }else{
+            $modelos = $this->modelo->with('marca')->get();
+        }
         return response()->json($modelos, 200);
     }
 
@@ -144,4 +150,6 @@ class ModeloController extends Controller
         $modelo->delete();
         return response()->json(['msg' => 'O modelo foi removida com sucesso!'], 200);
     }
+
+    
 }
