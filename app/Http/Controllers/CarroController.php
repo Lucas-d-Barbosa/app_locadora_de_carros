@@ -149,6 +149,6 @@ class CarroController extends Controller
             return response()->json(['erro' => 'Impossível realizar a exclusão. O recurso solicitado não existe!'],404);
         }
         $carro->delete();
-        return response()->json(['msg' => 'O carro foi removida com sucesso!'], 200);
+        return response()->json(['msg' => 'O carro foi removido com sucesso!'], 200);
     }
 }
