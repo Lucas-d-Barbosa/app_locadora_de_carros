@@ -33,7 +33,8 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        return 'refresh';
+        $token = auth('api')->refresh(); // cliente encaminhe um jwt válido
+        return response()->json(['token' => $token]);
     }
 
 
