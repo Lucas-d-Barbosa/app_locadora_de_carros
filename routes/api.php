@@ -18,11 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('cliente', 'App\Http\Controllers\ClienteController');
-Route::apiResource('carro', 'App\Http\Controllers\CarroController');
-Route::apiResource('modelo', 'App\Http\Controllers\ModeloController');
-Route::apiResource('marca', 'App\Http\Controllers\MarcaController');
-Route::apiResource('locacao', 'App\Http\Controllers\LocacaoController');
+Route::prefix('v1')->middleware('jwt.auth')->group(function(){
+    Route::apiResource('cliente', 'App\Http\Controllers\ClienteController');
+    Route::apiResource('carro', 'App\Http\Controllers\CarroController');
+    Route::apiResource('modelo', 'App\Http\Controllers\ModeloController');
+    Route::apiResource('marca', 'App\Http\Controllers\MarcaController');
+    Route::apiResource('locacao', 'App\Http\Controllers\LocacaoController');
+});
 
 Route::post('login', 'App\Http\Controllers\AuthController@login');
 Route::post('logout', 'App\Http\Controllers\AuthController@logout');
