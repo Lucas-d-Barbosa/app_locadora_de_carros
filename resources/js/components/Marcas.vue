@@ -4,9 +4,8 @@
             <div class="col-md-8">
 
                 <!--Inicio do card de busca-->
-                <div class="card mb-3">
-                    <div class="card-header">Marcas</div>
-                    <div class="card-body">
+                <card-component titulo="Buscar Marca">
+                    <template v-slot:conteudo>
                         <div class="form-row">
                             
                             <div class="col mb-3">
@@ -20,23 +19,22 @@
                                 </input-container-component>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
+                    </template>
+                    <template v-slot:rodape>
                         <button type="submit" class="btn btn-primary btn-sm float-end">Pesquisar</button>
-                    </div>
-                </div>
+                    </template>
+                </card-component>
                 <!--Fim do card de busca-->
 
                 <!--Inicio do card de listagem de marcas-->
-                <div class="card mb-3">
-                    <div class="card-header">Relação de Marcas</div>
-                    <div class="card-body">
+                <card-component titulo="Relação de Marcas">
+                    <template v-slot:conteudo>
                         <table-component></table-component>
-                    </div>
-                    <div class="card-footer">
+                    </template>
+                    <template v-slot:rodape>
                         <button type="button" class="btn btn-primary btn-sm float-end">Adicionar</button>
-                    </div>
-                </div>
+                    </template>
+                </card-component>
                 <!--Fim do card de listagem de marcas-->
 
             </div>
