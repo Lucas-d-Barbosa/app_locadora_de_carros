@@ -45,16 +45,19 @@
             <template v-slot:conteudo>
                 <form action="">
                     <input-container-component titulo="Nome da marca" id="novoNome" id-help="novoNomeHelp" texto-ajuda="Informe o nome da marca.">
-                        <input type="text" class="form-control" id="inputNome" aria-describedby="novoNomeHelp" placeholder="Nome da marca">
+                        <input type="text" class="form-control" id="inputNome" aria-describedby="novoNomeHelp" placeholder="Nome da marca" v-model="nomeMarca">
                     </input-container-component>
+                    {{ nomeMarca }}
                     <input-container-component titulo="Imagem" id="novaImagem" id-help="novaImagemHelp" texto-ajuda="Selecione uma imagem no formato PNG.">
-                        <input type="file" class="form-control" id="novaImagem" aria-describedby="novaImagemHelp" placeholder="Selecione uma imagem.">
+                        <input type="file" class="form-control" id="novaImagem" aria-describedby="novaImagemHelp" placeholder="Selecione uma imagem." @change="carregarImagem($event)">
                     </input-container-component>
+
+                    {{ arquivoImagem }}
                 </form>
             </template>
             <template v-slot:rodape>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
             </template>
         </modal-component>
 
@@ -62,6 +65,52 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { computed } from 'vue';
 
+    export default {
+        data(){
+            return {
+                urlBase: 'http://localhost:8001/api/v1/marca',
+                nomeMarca: '',
+                arquivoImagem: []
+            }
+        },
+        computed: {
+            token() {
+                const tokenCookie = document.cookie.split(';').find(indice => indice.trim().startsWith('token='));
+                if (!tokenCookie) {
+                    console.error('Token não encontrado nos cookies.');
+                    return null; // Ou retorne uma string vazia caso necessário
+                }
+                const tokenValue = tokenCookie.split('=')[1];
+                return `Bearer ${tokenValue}`;
+            }
+        },
+        methods:{
+            carregarImagem(e){
+                this.arquivoImagem = e.target.files
+            },
+            salvar(){
+                let formData = new FormData()
+                formData.append('nome', this.nomeMarca)
+                formData.append('imagem', this.arquivoImagem[0])
+                let config = {
+                    headers:{
+                        'Content-Type' : 'multipart/form-data',
+                        'Accept': 'application/json',
+                        'Authorization': this.token
+                    }
+                }
+                axios.post(this.urlBase, formData, config)
+                    .then(response => {
+                        console.log(response)
+                    })
+                    .catch(errors => {
+                        console.log(errors)
+                    })
+            }
+        }
+    }
 </script>
 

@@ -81,7 +81,8 @@
                         .then(response => response.json())
                         .then(data => {
                             if(data.token){ 
-                            document.cookie = 'token='+data.token+';SameSite=Lax'
+                                document.cookie = 'token=' + data.token + ';'
+                                console.log(document.cookie)
                         }
                     })
                     e.target.submit()
