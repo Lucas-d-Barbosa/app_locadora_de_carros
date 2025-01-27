@@ -42,17 +42,19 @@
 
         <!-- Modal -->
         <modal-component id="modalMarca" titulo="Adicionar Marca">
+            <template v-slot:alertas>
+                <alert-component tipo="success"></alert-component>
+                <alert-component tipo="danger"></alert-component>
+            </template>
             <template v-slot:conteudo>
                 <form action="">
                     <input-container-component titulo="Nome da marca" id="novoNome" id-help="novoNomeHelp" texto-ajuda="Informe o nome da marca.">
                         <input type="text" class="form-control" id="inputNome" aria-describedby="novoNomeHelp" placeholder="Nome da marca" v-model="nomeMarca">
                     </input-container-component>
-                    {{ nomeMarca }}
                     <input-container-component titulo="Imagem" id="novaImagem" id-help="novaImagemHelp" texto-ajuda="Selecione uma imagem no formato PNG.">
                         <input type="file" class="form-control" id="novaImagem" aria-describedby="novaImagemHelp" placeholder="Selecione uma imagem." @change="carregarImagem($event)">
                     </input-container-component>
 
-                    {{ arquivoImagem }}
                 </form>
             </template>
             <template v-slot:rodape>
