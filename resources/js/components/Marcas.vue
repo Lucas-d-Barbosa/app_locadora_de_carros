@@ -77,7 +77,8 @@ import { computed } from 'vue';
                 nomeMarca: '',
                 arquivoImagem: [],
                 transacaoStatus: '',
-                transacaoDetalhes: {}
+                transacaoDetalhes: {},
+                marcas: []
             }
         },
         computed: {
@@ -92,6 +93,23 @@ import { computed } from 'vue';
             }
         },
         methods:{
+            carregarLista(){
+                let config = {
+                    headers:{
+                        'Accept': 'application/json',
+                        'Authorization': this.token
+                    }
+                }
+
+                axios.get(this.urlBase, config)
+                    .then(response => {
+                        this.marcas = response.data
+                        console.log(response.data);
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    })
+            },
             carregarImagem(e){
                 this.arquivoImagem = e.target.files
             },
@@ -125,6 +143,9 @@ import { computed } from 'vue';
                         // errors.response.data.message
                     })
             }
+        },
+        mounted() {
+            this.carregarLista()
         }
     }
 </script>
