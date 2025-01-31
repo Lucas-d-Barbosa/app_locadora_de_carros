@@ -5316,7 +5316,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['dados', 'titulos']
+  props: ['dados', 'titulos'],
+  computed: {
+    dadosFiltrados: function dadosFiltrados() {
+      var campos = Object.keys(this.titulos);
+      var dadosArrayFiltrados = [];
+      this.dados.map(function (item, chave) {
+        var itemFiltrado = {};
+        campos.forEach(function (campo) {
+          itemFiltrado[campo] = item[campo];
+        });
+        dadosArrayFiltrados.push(itemFiltrado);
+      });
+      return dadosArrayFiltrados;
+    }
+  }
 });
 
 /***/ }),
@@ -5752,7 +5766,24 @@ var render = function render() {
         return [_c("table-component", {
           attrs: {
             dados: _vm.marcas,
-            titulos: ["id", "nome", "imagem"]
+            titulos: {
+              id: {
+                titulo: "ID",
+                tipo: "text"
+              },
+              nome: {
+                titulo: "Noma da Marca",
+                tipo: "text"
+              },
+              imagem: {
+                titulo: "Imagem",
+                tipo: "imagem"
+              },
+              created_at: {
+                titulo: "Data de criação",
+                tipo: "data"
+              }
+            }
           }
         })];
       },
@@ -5950,10 +5981,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render),
 /* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -5962,23 +5989,21 @@ var render = function render() {
   }, [_c("thead", [_c("tr", _vm._l(_vm.titulos, function (t, key) {
     return _c("th", {
       key: key,
-      staticClass: "text-uppercase",
       attrs: {
         scope: "col"
       }
-    }, [_vm._v(_vm._s(t))]);
-  }), 0)]), _vm._v(" "), _c("tbody", _vm._l(_vm.dados, function (m) {
+    }, [_vm._v(_vm._s(t.titulo))]);
+  }), 0)]), _vm._v(" "), _c("tbody", _vm._l(_vm.dadosFiltrados, function (obj, chave) {
     return _c("tr", {
-      key: m.id
-    }, _vm._l(m, function (valor, chave) {
-      return _vm.titulos.includes(chave) ? _c("td", {
-        key: chave
-      }, [chave == "imagem" ? _c("span", [_c("img", {
-        attrs: _defineProperty({
-          src: "/storage/" + valor,
-          alt: "Logo da marca " + valor
-        }, "alt", "")
-      })]) : _c("span", [_vm._v("\n                        " + _vm._s(valor) + "\n                    ")])]) : _vm._e();
+      key: chave
+    }, _vm._l(obj, function (valor, chaveValor) {
+      return _c("td", {
+        key: chaveValor
+      }, [_vm.titulos[chaveValor].tipo == "text" ? _c("span", [_vm._v("\n                        " + _vm._s(valor) + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.titulos[chaveValor].tipo == "imagem" ? _c("span", [_c("img", {
+        attrs: {
+          src: "/storage/" + valor
+        }
+      })]) : _vm._e(), _vm._v(" "), _vm.titulos[chaveValor].tipo == "data" ? _c("span", [_vm._v("\n                        " + _vm._s(valor) + "\n                    ")]) : _vm._e()]);
     }), 0);
   }), 0)])]);
 };
