@@ -5752,7 +5752,7 @@ var render = function render() {
         return [_c("table-component", {
           attrs: {
             dados: _vm.marcas,
-            titulos: ["Id", "Nome", "Imagem"]
+            titulos: ["id", "nome", "imagem"]
           }
         })];
       },
@@ -5950,6 +5950,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render),
 /* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
 /* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -5957,6 +5961,8 @@ var render = function render() {
     staticClass: "table table-hover"
   }, [_c("thead", [_c("tr", _vm._l(_vm.titulos, function (t, key) {
     return _c("th", {
+      key: key,
+      staticClass: "text-uppercase",
       attrs: {
         scope: "col"
       }
@@ -5964,16 +5970,16 @@ var render = function render() {
   }), 0)]), _vm._v(" "), _c("tbody", _vm._l(_vm.dados, function (m) {
     return _c("tr", {
       key: m.id
-    }, [_c("th", {
-      attrs: {
-        scope: "row"
-      }
-    }, [_vm._v(_vm._s(m.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(m.nome))]), _vm._v(" "), _c("td", [_c("img", {
-      attrs: {
-        src: "/storage/" + m.imagem,
-        alt: "Logo da marca " + m.nome
-      }
-    })])]);
+    }, _vm._l(m, function (valor, chave) {
+      return _vm.titulos.includes(chave) ? _c("td", {
+        key: chave
+      }, [chave == "imagem" ? _c("span", [_c("img", {
+        attrs: _defineProperty({
+          src: "/storage/" + valor,
+          alt: "Logo da marca " + valor
+        }, "alt", "")
+      })]) : _c("span", [_vm._v("\n                        " + _vm._s(valor) + "\n                    ")])]) : _vm._e();
+    }), 0);
   }), 0)])]);
 };
 var staticRenderFns = [];
