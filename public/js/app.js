@@ -5765,7 +5765,7 @@ var render = function render() {
       fn: function fn() {
         return [_c("table-component", {
           attrs: {
-            dados: _vm.marcas,
+            dados: _vm.marcas.data,
             titulos: {
               id: {
                 titulo: "ID",

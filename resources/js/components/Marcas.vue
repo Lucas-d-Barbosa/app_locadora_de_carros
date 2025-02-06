@@ -31,7 +31,7 @@
 
                     <template v-slot:conteudo>
                         <table-component 
-                            :dados="marcas" 
+                            :dados="marcas.data" 
                             :titulos="{
                                 id: {titulo: 'ID', tipo: 'text'},
                                 nome: {titulo: 'Noma da Marca', tipo: 'text'},
