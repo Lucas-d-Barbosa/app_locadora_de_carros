@@ -89,7 +89,7 @@ import { computed } from 'vue';
                 arquivoImagem: [],
                 transacaoStatus: '',
                 transacaoDetalhes: {},
-                marcas: []
+                marcas: {data: []}
             }
         },
         computed: {
